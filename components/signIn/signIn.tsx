@@ -38,7 +38,6 @@ export default function Login() {
   const router = useRouter();
   const cookies = new Cookies();
   const dispatch = useDispatch<AppDispatch>();
-  // const selector = useSelector((state) => state.auth);
   const { loading } = useSelector((state: any) => state.auth);
   const { tokens } = useThemeContext();
 

@@ -89,7 +89,7 @@ export default function DashboardStat() {
               },
             }}
           >
-            {/* Gradient accent bar */}
+          
             <Box
               sx={{
                 position: "absolute",

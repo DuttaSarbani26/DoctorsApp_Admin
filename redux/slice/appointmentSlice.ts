@@ -3,13 +3,11 @@ import { endPoints } from "@/api/endPoints/endPoints";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 const initialState: {
   loading: boolean;
   appointmentList: any[];
   appointmentAcceptList: any[];
   error: any;
-  
 } = {
   loading: false,
   appointmentList: [],
@@ -17,7 +15,6 @@ const initialState: {
   appointmentAcceptList: [],
 };
 
-// 👉 Get Pending Appointments
 export const appointmentList = createAsyncThunk(
   "appointmentList",
   async (_, { rejectWithValue }) => {
@@ -25,12 +22,13 @@ export const appointmentList = createAsyncThunk(
       const res = await AxiosInstance.get(endPoints.doctor.appointmentList);
       return res.data.data;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Error fetching appointments");
+      return rejectWithValue(
+        err.response?.data?.message || "Error fetching appointments",
+      );
     }
-  }
+  },
 );
 
-// 👉 Confirm Appointment
 export const confirmAppointment = createAsyncThunk(
   "appointmentConfirm",
   async (id: string, { rejectWithValue }) => {
@@ -39,40 +37,41 @@ export const confirmAppointment = createAsyncThunk(
       const res = await AxiosInstance.put(url);
       return res.data;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Error confirming appointment");
+      return rejectWithValue(
+        err.response?.data?.message || "Error confirming appointment",
+      );
     }
-  }
+  },
 );
 
-
-// 👉 Cancel Appointment
 export const cancelAppointment = createAsyncThunk(
   "appointmentCancel",
   async (id: string, { rejectWithValue }) => {
     try {
       const url = endPoints.doctor.rejectAppointment.replace(":id", id);
-      const res = await AxiosInstance.put(
-        url);
+      const res = await AxiosInstance.put(url);
       return res.data;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Error cancelling appointment");
+      return rejectWithValue(
+        err.response?.data?.message || "Error cancelling appointment",
+      );
     }
-  }
+  },
 );
 
-
-// ✅ Fetch Accepted Appointments (Confirmed)
 export const appointmentAcceptedList = createAsyncThunk(
   "appointmentAcceptedList",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await AxiosInstance.get(endPoints.doctor.appointmentAcceptList);
+      const res = await AxiosInstance.get(
+        endPoints.doctor.appointmentAcceptList,
+      );
 
-      return res.data.data; // your backend returns { data: list }
+      return res.data.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data || "Something went wrong");
     }
-  }
+  },
 );
 
 const appointmentSlice = createSlice({
@@ -82,9 +81,6 @@ const appointmentSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-
-    /* Appointment List   */
-
 
       .addCase(appointmentList.pending, (state) => {
         state.loading = true;
@@ -99,32 +95,22 @@ const appointmentSlice = createSlice({
         state.error = action.payload;
       })
 
-     /* Appointment  Confirm */
-
-
       .addCase(confirmAppointment.pending, (state) => {
         state.loading = true;
       })
       .addCase(confirmAppointment.fulfilled, (state, action) => {
         state.loading = false;
 
-        // 🔥 Optimistic update (no refetch needed)
         const updatedId = action.meta.arg;
 
         state.appointmentList = state.appointmentList.map((item) =>
-          item._id === updatedId
-            ? { ...item, status: "Confirmed" }
-            : item
+          item._id === updatedId ? { ...item, status: "Confirmed" } : item,
         );
       })
       .addCase(confirmAppointment.rejected, (state, action: any) => {
         state.loading = false;
         state.error = action.payload;
       })
-
-
-
-        /* Appointment Cancel */
 
       .addCase(cancelAppointment.pending, (state) => {
         state.loading = true;
@@ -135,9 +121,7 @@ const appointmentSlice = createSlice({
         const updatedId = action.meta.arg;
 
         state.appointmentList = state.appointmentList.map((item) =>
-          item._id === updatedId
-            ? { ...item, status: "Cancelled" }
-            : item
+          item._id === updatedId ? { ...item, status: "Cancelled" } : item,
         );
       })
       .addCase(cancelAppointment.rejected, (state, action: any) => {
@@ -145,29 +129,21 @@ const appointmentSlice = createSlice({
         state.error = action.payload;
       })
 
-/* Appointment Accepted List */
-
       .addCase(appointmentAcceptedList.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
 
-      // ✅ Success
       .addCase(appointmentAcceptedList.fulfilled, (state, action) => {
         state.loading = false;
         state.appointmentAcceptList = action.payload;
       })
 
-      // ❌ Error
       .addCase(appointmentAcceptedList.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
-
-
-
-
 
 export default appointmentSlice;

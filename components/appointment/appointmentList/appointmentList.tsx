@@ -1,8 +1,3 @@
-
-
-
-
-
 "use client";
 
 import { useEffect } from "react";
@@ -35,7 +30,7 @@ export default function AppointmentList() {
   const { tokens } = useThemeContext();
 
   const appointments = useSelector(
-    (state: any) => state.appointment.appointmentList
+    (state: any) => state.appointment.appointmentList,
   );
 
   useEffect(() => {
@@ -76,7 +71,6 @@ export default function AppointmentList() {
 
   return (
     <Box>
-      {/* Header */}
       <Box mb={3}>
         <Typography variant="h4" fontWeight={700} color={tokens.text}>
           Appointments
@@ -86,7 +80,6 @@ export default function AppointmentList() {
         </Typography>
       </Box>
 
-      {/* List Container */}
       <Paper
         elevation={0}
         sx={{
@@ -112,7 +105,6 @@ export default function AppointmentList() {
                 },
               }}
             >
-              {/* LEFT */}
               <Box
                 sx={{
                   display: "flex",
@@ -121,11 +113,7 @@ export default function AppointmentList() {
                   minWidth: 180,
                 }}
               >
-                <Typography
-                  fontWeight={600}
-                  fontSize={14}
-                  color={tokens.text}
-                >
+                <Typography fontWeight={600} fontSize={14} color={tokens.text}>
                   User ID: {item.userId}
                 </Typography>
 
@@ -134,7 +122,6 @@ export default function AppointmentList() {
                 </Typography>
               </Box>
 
-              {/* CENTER */}
               <Box
                 sx={{
                   display: "flex",
@@ -164,13 +151,11 @@ export default function AppointmentList() {
                       item.status === "Pending"
                         ? "rgba(251,191,36,0.12)"
                         : "rgba(34,197,94,0.12)",
-                    color:
-                      item.status === "Pending" ? "#f59e0b" : "#22c55e",
+                    color: item.status === "Pending" ? "#f59e0b" : "#22c55e",
                   }}
                 />
               </Box>
 
-              {/* RIGHT */}
               {item.status === "Pending" && (
                 <Stack direction="row" spacing={1}>
                   <IconButton
@@ -186,9 +171,7 @@ export default function AppointmentList() {
                       },
                     }}
                   >
-                    <CheckCircleIcon
-                      sx={{ color: "#22c55e", fontSize: 20 }}
-                    />
+                    <CheckCircleIcon sx={{ color: "#22c55e", fontSize: 20 }} />
                   </IconButton>
 
                   <IconButton

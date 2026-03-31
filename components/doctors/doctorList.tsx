@@ -128,7 +128,6 @@ export default function DoctorList() {
 
   return (
     <Box>
-      {/* Header */}
       <Box
         sx={{
           display: "flex",
@@ -169,7 +168,6 @@ export default function DoctorList() {
         </Button>
       </Box>
 
-      {/* Filter Bar */}
       <Paper
         elevation={0}
         sx={{
@@ -252,7 +250,6 @@ export default function DoctorList() {
         </Select>
       </Paper>
 
-      {/* Doctor Grid */}
       <Grid container spacing={2.5}>
         {loading ? (
           Array.from({ length: 8 }).map((_, i) => (
@@ -328,7 +325,6 @@ export default function DoctorList() {
                   },
                 }}
               >
-                {/* Gradient top bar */}
                 <Box
                   sx={{
                     height: 4,
@@ -368,7 +364,6 @@ export default function DoctorList() {
                     </Box>
                   </Stack>
 
-                  {/* Department */}
                   <Typography
                     mt={2}
                     variant="body2"
@@ -378,7 +373,6 @@ export default function DoctorList() {
                     <strong>Dept:</strong> {doc.department?.name}
                   </Typography>
 
-                  {/* Slots */}
                   <Box mt={1.5}>
                     {doc.schedule?.startTime && doc.schedule?.endTime ? (
                       <Chip
@@ -405,7 +399,6 @@ export default function DoctorList() {
                     )}
                   </Box>
 
-                  {/* Fees */}
                   <Typography
                     mt={1.5}
                     fontWeight={700}
@@ -415,7 +408,6 @@ export default function DoctorList() {
                     ₹{doc.fees}
                   </Typography>
 
-                  {/* Actions */}
                   <Stack
                     direction="row"
                     justifyContent="flex-end"
@@ -441,7 +433,6 @@ export default function DoctorList() {
                       />
                     </IconButton>
 
-                    {/* ✅ Edit */}
                     <IconButton
                       size="small"
                       onClick={() => {
@@ -459,7 +450,6 @@ export default function DoctorList() {
                       ✏️
                     </IconButton>
 
-                    {/* Delete */}
                     <IconButton
                       size="small"
                       onClick={() => handleDeleteDoctor(doc._id)}
@@ -481,29 +471,28 @@ export default function DoctorList() {
         )}
       </Grid>
 
-      {/* Pagination */}
-    {!departmentId && totalPages > 1 && (
-  <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-    <Pagination
-      count={totalPages}
-      page={page}
-      onChange={(_, value) => setPage(value)}
-      color="primary"
-      shape="rounded"
-      sx={{
-        "& .MuiPaginationItem-root": {
-          fontWeight: 600,
-          color: tokens.textSecondary,
-          "&.Mui-selected": {
-            background:
-              "linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)",
-            color: "#fff",
-          },
-        },
-      }}
-    />
-  </Box>
-)}
+      {!departmentId && totalPages > 1 && (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            color="primary"
+            shape="rounded"
+            sx={{
+              "& .MuiPaginationItem-root": {
+                fontWeight: 600,
+                color: tokens.textSecondary,
+                "&.Mui-selected": {
+                  background:
+                    "linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)",
+                  color: "#fff",
+                },
+              },
+            }}
+          />
+        </Box>
+      )}
 
       <DoctorCreateModal
         open={showModal}
@@ -573,7 +562,6 @@ export default function DoctorList() {
         <DialogContent dividers sx={{ p: 3, background: tokens.bgGlass }}>
           {selectedDoctor && (
             <Stack spacing={2.5}>
-              {/* Department */}
               <Paper
                 elevation={0}
                 sx={{
@@ -621,7 +609,6 @@ export default function DoctorList() {
                 </Box>
               </Paper>
 
-              {/* Experience */}
               <Paper
                 elevation={0}
                 sx={{
@@ -669,7 +656,6 @@ export default function DoctorList() {
                 </Box>
               </Paper>
 
-              {/* Rating */}
               <Paper
                 elevation={0}
                 sx={{
@@ -726,7 +712,6 @@ export default function DoctorList() {
                 </Box>
               </Paper>
 
-              {/* Consultation Fees */}
               <Paper
                 elevation={0}
                 sx={{
@@ -774,7 +759,6 @@ export default function DoctorList() {
                 </Box>
               </Paper>
 
-              {/* About */}
               <Paper
                 elevation={0}
                 sx={{

@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { createLocation } from "@/redux/slice/locationSlice";
@@ -91,7 +89,6 @@ export default function LocationPage() {
           background: tokens.bgElevated,
         }}
       >
-        {/* HEADER */}
         <Box
           sx={{
             px: 3,
@@ -116,7 +113,6 @@ export default function LocationPage() {
 
         <CardContent sx={{ p: 4, background: tokens.bgElevated }}>
           <Stack spacing={3}>
-            {/* NAME */}
             <TextField
               label="Center Name"
               fullWidth
@@ -126,16 +122,23 @@ export default function LocationPage() {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   color: tokens.text,
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: tokens.inputBorder },
-                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.inputBorder,
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.accent,
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.accent,
+                  },
                 },
-                "& .MuiInputBase-input::placeholder": { color: tokens.textMuted },
+                "& .MuiInputBase-input::placeholder": {
+                  color: tokens.textMuted,
+                },
                 "& .MuiInputLabel-root": { color: tokens.textMuted },
               }}
             />
 
-            {/* ADDRESS */}
             <TextField
               label="Address"
               fullWidth
@@ -145,16 +148,23 @@ export default function LocationPage() {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   color: tokens.text,
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: tokens.inputBorder },
-                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.inputBorder,
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.accent,
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.accent,
+                  },
                 },
-                "& .MuiInputBase-input::placeholder": { color: tokens.textMuted },
+                "& .MuiInputBase-input::placeholder": {
+                  color: tokens.textMuted,
+                },
                 "& .MuiInputLabel-root": { color: tokens.textMuted },
               }}
             />
 
-            {/* PHONE */}
             <TextField
               label="Phone Number"
               fullWidth
@@ -164,16 +174,23 @@ export default function LocationPage() {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   color: tokens.text,
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: tokens.inputBorder },
-                  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.inputBorder,
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.accent,
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: tokens.accent,
+                  },
                 },
-                "& .MuiInputBase-input::placeholder": { color: tokens.textMuted },
+                "& .MuiInputBase-input::placeholder": {
+                  color: tokens.textMuted,
+                },
                 "& .MuiInputLabel-root": { color: tokens.textMuted },
               }}
             />
 
-            {/* LAT LNG */}
             <Box
               sx={{
                 display: "grid",
@@ -190,11 +207,19 @@ export default function LocationPage() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     color: tokens.text,
-                    "& .MuiOutlinedInput-notchedOutline": { borderColor: tokens.inputBorder },
-                    "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: tokens.inputBorder,
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: tokens.accent,
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: tokens.accent,
+                    },
                   },
-                  "& .MuiInputBase-input::placeholder": { color: tokens.textMuted },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: tokens.textMuted,
+                  },
                   "& .MuiInputLabel-root": { color: tokens.textMuted },
                 }}
               />
@@ -208,17 +233,24 @@ export default function LocationPage() {
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     color: tokens.text,
-                    "& .MuiOutlinedInput-notchedOutline": { borderColor: tokens.inputBorder },
-                    "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: tokens.accent },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: tokens.inputBorder,
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: tokens.accent,
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: tokens.accent,
+                    },
                   },
-                  "& .MuiInputBase-input::placeholder": { color: tokens.textMuted },
+                  "& .MuiInputBase-input::placeholder": {
+                    color: tokens.textMuted,
+                  },
                   "& .MuiInputLabel-root": { color: tokens.textMuted },
                 }}
               />
             </Box>
 
-            {/* GEO BUTTON */}
             <Button
               startIcon={<MyLocationIcon />}
               onClick={() => {
@@ -238,7 +270,6 @@ export default function LocationPage() {
 
             <Divider sx={{ borderColor: tokens.border }} />
 
-            {/* ACTION BUTTONS */}
             <Stack direction="row" spacing={2}>
               <Button
                 fullWidth
@@ -258,7 +289,10 @@ export default function LocationPage() {
                   textTransform: "none",
                   borderColor: tokens.border,
                   color: tokens.text,
-                  "&:hover": { borderColor: tokens.accent, background: tokens.accentGlow },
+                  "&:hover": {
+                    borderColor: tokens.accent,
+                    background: tokens.accentGlow,
+                  },
                 }}
               >
                 Reset

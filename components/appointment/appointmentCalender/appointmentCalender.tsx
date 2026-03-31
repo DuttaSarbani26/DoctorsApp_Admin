@@ -14,7 +14,6 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { appointmentAcceptedList } from "@/redux/slices/appointmentSlice";
 import { useThemeContext } from "@/context/ThemeContext";
 import { appointmentAcceptedList } from "@/redux/slice/appointmentSlice";
 
@@ -28,12 +27,11 @@ export default function AppointmentCalendar() {
 
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
 
-  // 🔥 Fetch from Redux
   useEffect(() => {
     dispatch(appointmentAcceptedList() as any);
   }, [dispatch]);
 
-  // 🎯 Filter by date
+ 
   const filteredAppointments = appointmentAcceptList?.filter((appt: any) =>
     dayjs(appt.date).format("YYYY-MM-DD") ===
     selectedDate.format("YYYY-MM-DD")
@@ -54,7 +52,7 @@ export default function AppointmentCalendar() {
         flexDirection: "column",
       }}
     >
-      {/* Header */}
+    
       <Box
         sx={{
           px: 2,
@@ -90,7 +88,7 @@ export default function AppointmentCalendar() {
         </Box>
       </Box>
 
-      {/* Calendar */}
+     
       <Box sx={{ px: 0.5, pt: 0.5 }}>
         <DateCalendar
           value={selectedDate}
@@ -134,7 +132,6 @@ export default function AppointmentCalendar() {
         />
       </Box>
 
-      {/* List */}
       <Box sx={{ px: 1.5, pb: 1.5, pt: 0.5 }}>
         <Typography
           fontWeight={600}
@@ -177,7 +174,7 @@ export default function AppointmentCalendar() {
                   },
                 }}
               >
-                {/* Left */}
+              
                 <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
                   <Avatar
                     sx={{
@@ -210,7 +207,7 @@ export default function AppointmentCalendar() {
                   </Box>
                 </Box>
 
-                {/* Right */}
+              
                 <Chip
                   label="Confirmed"
                   size="small"

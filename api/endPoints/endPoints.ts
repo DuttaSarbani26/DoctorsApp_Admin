@@ -1,5 +1,4 @@
 import { appointmentList } from "@/redux/slice/doctorSlice"
-import { searchDoctorDepartment } from "@/redux/slice/searchSlice"
 import { create } from "domain"
 
 export const endPoints = {
@@ -16,7 +15,6 @@ export const endPoints = {
         doctorEdit:`/admin/doctor/update`,
         doctorDelete:`/admin/doctor/delete`,
         departmentWiseDoctor:`/admin/departments/:departmentId/doctors`,
-        searchDoctorDepartment: `/admin/department/doctors/:searchData`,
         appointmentList: `/admin/doctor/appointment/list`,
         confirmAppointment: `/admin/doctor/appointment/:id`,
         rejectAppointment: `/admin/doctor/appointment/cancelld/:id`,
@@ -34,7 +32,6 @@ export const points = [
     endPoints.doctor.departmentList,
     endPoints.doctor.doctorCreate,
     endPoints.doctor.departmentDelete,
-    endPoints.doctor.searchDoctorDepartment,
     endPoints.doctor.doctorList,
     endPoints.doctor.doctorEdit,
     endPoints.doctor.doctorDelete,

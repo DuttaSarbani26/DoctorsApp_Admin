@@ -58,20 +58,6 @@ export const deleteDepartment = createAsyncThunk(
   },
 );
 
-// export const doctorCreate = createAsyncThunk(
-//   "doctorCreate",
-//   async (payload) => {
-//     const departmentId = cookie.get("id");
-//     const response = await AxiosInstance.post(endPoints.doctor.doctorCreate, {
-//       payload,
-//       department: departmentId,
-//     });
-
-//     console.log(response);
-//     console.log("sarbani", departmentId);
-//     return response.data;
-//   },
-// );
 
 
 export const doctorCreate = createAsyncThunk(
@@ -90,14 +76,6 @@ export const doctorCreate = createAsyncThunk(
 );
 
 
-// export const doctorList = createAsyncThunk(
-//   "doctorList",
-//   async () => {
-//     const response = await AxiosInstance.get(endPoints.doctor.doctorList);
-//     console.log(response);
-//     return response.data;
-//   },
-// );
 
 export const doctorList = createAsyncThunk(
   "doctorList",
@@ -106,7 +84,7 @@ export const doctorList = createAsyncThunk(
       const res = await AxiosInstance.get(
         `${endPoints.doctor.doctorList}?page=${page}&limit=${limit}&search=${search}`
       );
-      console.log("Doctor list response:", res.data); // Log for debugging
+      console.log("Doctor list response:", res.data); 
       return res.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data);
@@ -115,22 +93,7 @@ export const doctorList = createAsyncThunk(
 );
 
 
-// export const doctorEdit = createAsyncThunk(
-//   "doctorEdit",
-//   async ({ id, payload }) => {
-//     const response = await AxiosInstance.post(
-//       endPoints.doctor.doctorEdit,
-//       {
-//         id,
-//         ...payload,
-//       }
-//     );
 
-//     return response.data;
-//   }
-// );
-
-// EDIT
 export const doctorEdit = createAsyncThunk(
   "doctorEdit",
   async ({ id, data }: { id: string; data: any }, { rejectWithValue }) => {
@@ -152,19 +115,7 @@ export const doctorEdit = createAsyncThunk(
   }
 );
 
-// export const deleteDoctor = createAsyncThunk(
-//   "doctorDelete",
-//   async (id) => {
-//     const response = await AxiosInstance.post(
-//       endPoints.doctor.doctorDelete,
-//       { id }
-//     );
 
-//     return { id, ...response.data };
-//   }
-// );
-
-// DELETE
 export const doctorDelete = createAsyncThunk(
   "doctorDelete",
   async (id: string, { rejectWithValue }) => {
@@ -185,7 +136,7 @@ export const doctorDelete = createAsyncThunk(
 );
 
 
-// DEPARTMENT-WISE DOCTOR
+
 export const departmentWiseDoctor = createAsyncThunk(
   "departmentWiseDoctor",
   async (departmentId: string, { rejectWithValue }) => {
@@ -205,7 +156,6 @@ export const departmentWiseDoctor = createAsyncThunk(
 );
 
 
-//  Get Pending Appointments
 export const appointmentList = createAsyncThunk(
   "appointment/list",
   async (_, { rejectWithValue }) => {
@@ -242,17 +192,15 @@ export const doctorSlice = createSlice({
         state.loading = false;
       })
 
-      /* get department list */
-
       .addCase(getDepartmentList.pending, (state, { payload }) => {})
       .addCase(getDepartmentList.fulfilled, (state, { payload }) => {
         state.departmentList = payload.data;
         state.loading = false;
-        // state.departmentList = payload;
+       
       })
       .addCase(getDepartmentList.rejected, (state, { payload }) => {})
 
-      /* delete department */
+     
 
      
       .addCase(deleteDepartment.pending, (state, { payload }) => {
@@ -265,7 +213,7 @@ export const doctorSlice = createSlice({
       })
       .addCase(deleteDepartment.rejected, (state, { payload }) => {})
 
-      /* doctor create */
+      
       .addCase(doctorCreate.pending, (state, { payload }) => {
         state.loading = true;
       })
@@ -274,7 +222,6 @@ export const doctorSlice = createSlice({
       })
       .addCase(doctorCreate.rejected, (state, { payload }) => {})
 
-      // doctor list
 
       .addCase(doctorList.pending, (state) => {
         state.loading = true;
@@ -282,7 +229,7 @@ export const doctorSlice = createSlice({
       .addCase(doctorList.fulfilled, (state, { payload }) => {
   state.loading = false;
   state.doctorList = payload.data || [];
-  // Handle multiple possible field names for total count
+ 
   state.doctorTotal = payload.totalItems || payload.totalCount || payload.total || payload.count || 0;
   console.log("Doctor total updated to:", state.doctorTotal, "from payload:", payload);
 })
@@ -291,7 +238,6 @@ export const doctorSlice = createSlice({
       })
 
 
-       /* doctor edit */
 
     .addCase(doctorEdit.pending, (state) => {
         state.loading = true;
@@ -314,7 +260,7 @@ export const doctorSlice = createSlice({
       })
 
 
-    /* doctor delete */
+  
 
     .addCase(doctorDelete.pending, (state) => {
       state.loading = true;
@@ -329,7 +275,7 @@ export const doctorSlice = createSlice({
     .addCase(doctorDelete.rejected, (state) => {
       state.loading = false;
     })
-       /* ===== DEPARTMENT FILTER ===== */
+      
       .addCase(departmentWiseDoctor.pending, (state) => {
         state.loading = true;
       })

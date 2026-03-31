@@ -1,462 +1,11 @@
-// "use client";
-
-// import { deleteDepartment, getDepartmentList } from "@/redux/slice/doctorSlice";
-// import { faBuilding, faPlus } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { useRouter } from "next/navigation";
-// import React, { useEffect } from "react";
-// // import confirmDelete from "@/sweetAlert";
-// import confirmDelete from "../sweetAlert/sweetAlert"
-// import { useDispatch, useSelector } from "react-redux";
-// import styles from "../departmentList/departmentList.module.css";
-// import Swal from "sweetalert2";
-
-// export default function DepartmentList() {
-//   const dispatch = useDispatch();
-//   const router = useRouter();
-
-//   const { departmentList, loading } = useSelector((state) => state.doctor);
-
-//   useEffect(() => {
-//     dispatch(getDepartmentList());
-//   }, [dispatch]);
-//   console.log("departmentList:", departmentList);
-
-//   // const handleDelete = async (id) => {
-//   //   try {
-//   //     await dispatch(deleteDepartment(id)).unwrap();
-//   //     dispatch(getDepartmentList());
-//   //   } catch (error) {
-//   //     console.error("Delete failed", error);
-//   //   }
-//   // };
-
-// const handleDelete = async (id) => {
-//   const result = await Swal.fire({
-//     title: "Are you sure?",
-//     text: "This department will be permanently deleted!",
-//     icon: "warning",
-//     showCancelButton: true,
-//     confirmButtonColor: "#d33",
-//     cancelButtonColor: "#6366f1",
-//     confirmButtonText: "Yes, delete it!",
-//   });
-
-//   if (result.isConfirmed) {
-//     try {
-//       await dispatch(deleteDepartment(id)).unwrap();
-
-//       dispatch(getDepartmentList());
-
-//       Swal.fire({
-//         title: "Deleted!",
-//         text: "Department has been deleted.",
-//         icon: "success",
-//         timer: 1500,
-//         showConfirmButton: false,
-//       });
-
-//     } catch (error) {
-//       console.error("Delete failed", error);
-
-//       Swal.fire({
-//         title: "Error!",
-//         text: "Failed to delete department.",
-//         icon: "error",
-//       });
-//     }
-//   }
-// };
-//   return (
-//     <div className={styles.wrapper}>
-//       {/* Page Header */}
-//       <div className={styles.topSection}>
-//         <div>
-//           <h1 className={styles.pageTitle}>Departments</h1>
-//           <p className={styles.pageSubTitle}>
-//             Manage All Departments in your hospital
-//           </p>
-//         </div>
-//         <button
-//           className={styles.addBtn}
-//           onClick={() => router.push("/createDepartment")}
-//         >
-//           <FontAwesomeIcon icon={faPlus} /> Add Department
-//         </button>
-//       </div>
-
-//       {/* Card */}
-//       <div className={styles.card}>
-//         <div className={styles.cardHeader}>
-//           <h3> All Departments ({departmentList?.length || 0})</h3>
-//           <p>A list of all hospital departments and their information</p>
-//         </div>
-
-//         {loading ? (
-//           <p className={styles.loading}>Loading...</p>
-//         ) : (
-//           <div className={styles.tableWrapper}>
-//             <table className={styles.table}>
-//               <thead>
-//                 <tr>
-//                   <th>Department Name</th>
-//                   <th>Description</th>
-//                   {/* <th>Doctors</th> */}
-//                   <th>Created</th>
-//                   <th>Actions</th>
-//                 </tr>
-//               </thead>
-
-//               <tbody>
-//                 {departmentList?.map((dept) => (
-//                   <tr key={dept._id}>
-//                     <td className={styles.nameCell}>
-//                       <div className={styles.iconBox}>
-//                         <FontAwesomeIcon icon={faBuilding} />
-//                       </div>
-//                       <span>{dept.name}</span>
-//                     </td>
-//                     <td>{dept.description}</td>
-//                     <td>{new Date(dept.createdAt).toLocaleDateString()}</td>
-//                     <td>
-//                       <button
-//                         className={styles.deleteBtn}
-//                         onClick={() => handleDelete(dept._id)
-//                         }
-//                       >
-//                         Delete
-//                       </button>
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-// "use client";
-
-// import React, { useEffect, useState } from "react";
-// import { deleteDepartment, getDepartmentList } from "@/redux/slice/doctorSlice";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useRouter } from "next/navigation";
-// import Swal from "sweetalert2";
-// import CreateDepartmentModal from "@/components/modals/createDepartmentModal";
-// import CreateDoctorModal from "@/components/modals/createDoctorModal";
-
-// import {
-//   Box,
-//   Typography,
-//   Button,
-//   Paper,
-//   Skeleton,
-//   Pagination,
-//   Grid,
-//   Chip,
-//   IconButton,
-// } from "@mui/material";
-// import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import DoctorCreate from "../doctors/doctorCreate";
-// // import EditIcon from "@mui/icons-material/Edit";
-// // import Router from "next/router";
-
-// export default function DepartmentList() {
-//   const dispatch = useDispatch();
-//   const router = useRouter();
-
-//   const { departmentList, loading } = useSelector((state) => state.doctor);
-//   const [openDepartmentModal, setOpenDepartmentModal] = useState(false);
-//   const [openDoctorModal, setOpenDoctorModal] = useState(false);
-
-//   const [page, setPage] = useState(1);
-//   const rowsPerPage = 5;
-
-//   useEffect(() => {
-//     dispatch(getDepartmentList());
-//   }, [dispatch]);
-
-//   const handleDelete = async (id) => {
-//     const result = await Swal.fire({
-//       title: "Are you sure?",
-//       text: "This department will be permanently deleted!",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonColor: "#d33",
-//       cancelButtonColor: "#6366f1",
-//       confirmButtonText: "Yes, delete it!",
-//     });
-
-//     if (result.isConfirmed) {
-//       try {
-//         await dispatch(deleteDepartment(id)).unwrap();
-//         dispatch(getDepartmentList());
-
-//         Swal.fire({
-//           title: "Deleted!",
-//           text: "Department has been deleted.",
-//           icon: "success",
-//           timer: 1500,
-//           showConfirmButton: false,
-//         });
-//       } catch (error) {
-//         Swal.fire({
-//           title: "Error!",
-//           text: "Failed to delete department.",
-//           icon: "error",
-//         });
-//       }
-//     }
-//   };
-
-//   const handlePageChange = (event, value) => {
-//     setPage(value);
-//   };
-
-//   // const startIndex = (page - 1) * rowsPerPage;
-//   // const paginatedData = departmentList?.slice(
-//   //   startIndex,
-//   //   startIndex + rowsPerPage
-//   // );
-
-//   // const totalPages = Math.ceil((departmentList?.length || 0) / rowsPerPage);
-
-//   const departments = departmentList || [];
-
-//   const startIndex = (page - 1) * rowsPerPage;
-//   const paginatedData = departments.slice(startIndex, startIndex + rowsPerPage);
-
-//   const totalPages = Math.ceil(departments.length / rowsPerPage);
-//   const [selectedDepartment, setSelectedDepartment] = useState(null);
-
-//   return (
-//     <Box sx={{ padding: 4, background: "#f9fafb", minHeight: "100vh" }}>
-//       {/* Header */}
-//       <Box
-//         sx={{
-//           display: "flex",
-//           justifyContent: "space-between",
-//           // alignItems: "center",
-//           mb: 4,
-//         }}
-//       >
-//         <Box>
-//           <Typography variant="h4" fontWeight="bold">
-//             Departments
-//           </Typography>
-//           <Typography color="text.secondary">
-//             Manage all hospital departments
-//           </Typography>
-//         </Box>
-
-//         {/* <Button
-//           variant="contained"
-//           sx={{ borderRadius: 2 }}
-//           onClick={() => router.push("/createDepartment")}
-//         >
-//           Add Department
-//         </Button> */}
-//       </Box>
-//       {/* Card */}
-//       {/* <Paper sx={{ padding: 3, borderRadius: 3 }}>
-
-//         <Typography variant="h6" fontWeight="bold" mb={3}>
-//           All Departments ({departmentList?.length || 0})
-//         </Typography>
-
-//         <Typography variant="body2" color="text.secondary" mb={2}>
-//           List of all hospital departments
-//         </Typography> */}
-//       {/* Main Container */}
-//       <Paper sx={{ p: 4, borderRadius: 4 }}>
-//         <Typography variant="h6" fontWeight="bold" mb={3}>
-//           All Departments ({departments.length})
-//         </Typography>
-
-//         <Grid container spacing={3} alignItems="stretch">
-//           {loading
-//             ? [...Array(6)].map((_, i) => (
-//                 <Grid item xs={12} sm={6} md={4} key={i}>
-//                   <Paper sx={{ p: 3, borderRadius: 3 }}>
-//                     <Skeleton height={30} />
-//                     <Skeleton height={20} />
-//                     <Skeleton height={20} />
-//                   </Paper>
-//                 </Grid>
-//               ))
-//             : paginatedData.map((dept) => (
-//                 <Grid
-//                   item
-//                   xs={12}
-//                   sm={6}
-//                   md={4}
-//                   key={dept._id}
-//                   sx={{ display: "flex" }}
-//                 >
-//                   <Paper
-//                     elevation={3}
-//                     sx={{
-//                       p: 3,
-//                       borderRadius: 4,
-//                       width: "100%",
-//                       display: "flex",
-//                       flexDirection: "column",
-//                       justifyContent: "space-between",
-//                       transition: "0.3s",
-//                       "&:hover": {
-//                         transform: "translateY(-5px)",
-//                         boxShadow: 6,
-//                       },
-//                     }}
-//                   >
-//                     {/* Top Section */}
-//                     <Box>
-//                       <Box
-//                         sx={{
-//                           display: "flex",
-//                           justifyContent: "space-between",
-//                           mb: 2,
-//                         }}
-//                       >
-//                         <Box
-//                           sx={{
-//                             background: "#e3f2fd",
-//                             p: 1,
-//                             borderRadius: 2,
-//                           }}
-//                         >
-//                           <LocalHospitalIcon color="primary" />
-//                         </Box>
-
-//                         <Chip label="Active" color="success" size="small" />
-//                       </Box>
-
-//                       <Typography fontWeight="bold" fontSize={18}>
-//                         {dept.name}
-//                       </Typography>
-
-//                       <Typography
-//                         variant="body2"
-//                         color="text.secondary"
-//                         sx={{ mt: 1 }}
-//                       >
-//                         {dept.description}
-//                       </Typography>
-
-//                       <Typography
-//                         variant="caption"
-//                         color="gray"
-//                         sx={{ display: "block", mt: 2 }}
-//                       >
-//                         Created: {new Date(dept.createdAt).toLocaleDateString()}
-//                       </Typography>
-//                     </Box>
-
-//                     <Box
-//                       sx={{
-//                         display: "flex",
-//                         justifyContent: "flex-end",
-//                         mt: 2,
-//                         gap: 1,
-//                       }}
-//                     >
-//                       <Button
-//                         size="small"
-//                         variant="outlined"
-//                         onClick={() => {
-//                           setSelectedDepartment(dept); // ✅ set department
-//                           setOpenDoctorModal(true); // ✅ open modal
-//                         }}
-//                       >
-//                         Add Doctor
-//                       </Button>
-
-//                       <Button
-//                         size="small"
-//                         variant="contained"
-//                         onClick={() => setOpenDepartmentModal(true)}
-//                       >
-//                         Add Department
-//                       </Button>
-
-//                       {/* <IconButton
-//   color="error"
-//   onClick={() => handleDelete(dept._id)}
-// >
-//   <DeleteIcon />
-// </IconButton> */}
-
-//                       <IconButton
-//                         color="error"
-//                         onClick={() => handleDelete(dept._id)}
-//                       >
-//                         <DeleteIcon />
-//                       </IconButton>
-//                     </Box>
-//                   </Paper>
-//                 </Grid>
-//               ))}
-//         </Grid>
-
-//         {/* Pagination */}
-//         {!loading && (
-//           <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-//             <Pagination
-//               count={totalPages}
-//               page={page}
-//               onChange={(e, value) => setPage(value)}
-//               color="primary"
-//             />
-//           </Box>
-//         )}
-//       </Paper>{" "}
-//       <CreateDepartmentModal
-//         open={openDepartmentModal}
-//         handleClose={() => {
-//           setOpenDepartmentModal(false);
-//           dispatch(getDepartmentList());
-//         }}
-//       />
-//       {/*
-// <CreateDoctorModal
-//   open={openDoctorModal}
-//   department={selectedDepartment}
-//   handleClose={() => {
-//     setOpenDoctorModal(false);
-//     dispatch(getDepartmentList());
-//   }}
-// /> */}
-//       <CreateDoctorModal
-//         open={openDoctorModal}
-//         onClose={() => {
-//           setOpenDoctorModal(false);
-//           setSelectedDepartment(null);
-//           dispatch(getDepartmentList());
-//         }}
-//       >
-//         <DoctorCreate
-//           open={openDoctorModal}
-//           onClose={() => {
-//             setOpenDoctorModal(false);
-//             setSelectedDepartment(null);
-//             dispatch(getDepartmentList());
-//           }}
-//           editDoctor={null}
-//           department={selectedDepartment} // ✅ pass department
-//         />
-//       </CreateDoctorModal>
-//     </Box>
-//   );
-// }
-
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { deleteDepartment, departmentWiseDoctor, getDepartmentList } from "@/redux/slice/doctorSlice";
+import {
+  deleteDepartment,
+  departmentWiseDoctor,
+  getDepartmentList,
+} from "@/redux/slice/doctorSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import CreateDepartmentModal from "@/components/modals/createDepartmentModal";
@@ -488,7 +37,6 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import DoctorCreate from "../doctors/doctorCreate";
 import { useThemeContext } from "@/context/ThemeContext";
-
 
 export default function DepartmentList() {
   const dispatch = useDispatch<AppDispatch>();
@@ -570,10 +118,8 @@ export default function DepartmentList() {
     }
   };
 
-
   return (
     <Box>
-      {/* Header */}
       <Box
         sx={{
           display: "flex",
@@ -611,7 +157,6 @@ export default function DepartmentList() {
         </Button>
       </Box>
 
-      {/* Main Container */}
       <Paper
         elevation={0}
         sx={{
@@ -686,7 +231,6 @@ export default function DepartmentList() {
                       },
                     }}
                   >
-                    {/* Gradient top bar */}
                     <Box
                       sx={{
                         height: 4,
@@ -703,7 +247,6 @@ export default function DepartmentList() {
                         flexDirection: "column",
                       }}
                     >
-                      {/* Top Section */}
                       <Box
                         sx={{
                           display: "flex",
@@ -770,7 +313,6 @@ export default function DepartmentList() {
                         Created: {new Date(dept.createdAt).toLocaleDateString()}
                       </Typography>
 
-                      {/* Actions */}
                       <Box
                         sx={{
                           display: "flex",
@@ -800,7 +342,6 @@ export default function DepartmentList() {
                           View
                         </Button>
 
-
                         <IconButton
                           size="small"
                           onClick={() => handleDelete(dept._id)}
@@ -821,7 +362,6 @@ export default function DepartmentList() {
               ))}
         </Grid>
 
-        {/* Pagination */}
         {!loading && totalPages > 1 && (
           <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <Pagination
@@ -846,7 +386,6 @@ export default function DepartmentList() {
         )}
       </Paper>
 
-      {/* Modals */}
       <CreateDepartmentModal
         open={openDepartmentModal}
         handleClose={() => {
@@ -900,7 +439,8 @@ export default function DepartmentList() {
       >
         <DialogTitle
           sx={{
-            background: "linear-gradient(135deg, rgba(99,102,241,0.65) 0%, rgba(244,63,94,0.67) 100%)",
+            background:
+              "linear-gradient(135deg, rgba(99,102,241,0.65) 0%, rgba(244,63,94,0.67) 100%)",
             color: "#102f53",
             fontWeight: 700,
             p: 2,
@@ -922,7 +462,10 @@ export default function DepartmentList() {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent dividers sx={{ p: 3, minHeight: 300, background: tokens.bgGlass }}> 
+        <DialogContent
+          dividers
+          sx={{ p: 3, minHeight: 300, background: tokens.bgGlass }}
+        >
           {viewLoading ? (
             <Box
               sx={{
@@ -943,7 +486,10 @@ export default function DepartmentList() {
               {viewDoctors.map((doctor: any, index: number) => {
                 const experience = doctor.experience || 15;
                 const rating = doctor.rating || 4.5;
-                const about = doctor.about || doctor.bio || "A dedicated medical professional with a proven track record of patient care and clinical excellence.";
+                const about =
+                  doctor.about ||
+                  doctor.bio ||
+                  "A dedicated medical professional with a proven track record of patient care and clinical excellence.";
                 const departmentName =
                   doctor.department?.name || selectedDepartment?.name || "N/A";
                 const fees = doctor.fees ? `₹${doctor.fees}` : "₹500";
@@ -951,7 +497,10 @@ export default function DepartmentList() {
                   doctor.availableSlot || "Mon-Fri 09:00 AM - 05:00 PM";
 
                 return (
-                  <Grid key={doctor._id || doctor.id || index} size={{ xs: 12, md: 6 }}>
+                  <Grid
+                    key={doctor._id || doctor.id || index}
+                    size={{ xs: 12, md: 6 }}
+                  >
                     <Paper
                       elevation={2}
                       sx={{
@@ -960,29 +509,63 @@ export default function DepartmentList() {
                         border: `1px solid ${tokens.border}`,
                         background: tokens.cardBg,
                         transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                        '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: '0 12px 24px rgba(0,0,0,0.10)',
+                        "&:hover": {
+                          transform: "translateY(-4px)",
+                          boxShadow: "0 12px 24px rgba(0,0,0,0.10)",
                         },
                       }}
                     >
-                      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
-                        <Typography variant="subtitle1" fontWeight={700} color={tokens.text}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          mb: 1,
+                        }}
+                      >
+                        <Typography
+                          variant="subtitle1"
+                          fontWeight={700}
+                          color={tokens.text}
+                        >
                           {doctor.name || doctor.fullName || "Unnamed Doctor"}
                         </Typography>
-                        <Typography variant="caption" sx={{ color: "#10b981", fontWeight: 700 }}>
+                        <Typography
+                          variant="caption"
+                          sx={{ color: "#10b981", fontWeight: 700 }}
+                        >
                           {rating.toFixed?.(1) || rating} ★
                         </Typography>
                       </Box>
 
-                      <Typography variant="body2" color={tokens.textSecondary} sx={{ mb: 1 }}>
+                      <Typography
+                        variant="body2"
+                        color={tokens.textSecondary}
+                        sx={{ mb: 1 }}
+                      >
                         {about}
                       </Typography>
 
-                      <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 1 }}>
-                        <Chip label={`Experience: ${experience} yrs`} size="small" color="primary" />
-                        <Chip label={`Department: ${departmentName}`} size="small" color="secondary" />
-                        <Chip label={`Fees: ${fees}`} size="small" sx={{ bgcolor: "#fee2e2", color: "#b91c1c" }} />
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        flexWrap="wrap"
+                        sx={{ mb: 1 }}
+                      >
+                        <Chip
+                          label={`Experience: ${experience} yrs`}
+                          size="small"
+                          color="primary"
+                        />
+                        <Chip
+                          label={`Department: ${departmentName}`}
+                          size="small"
+                          color="secondary"
+                        />
+                        <Chip
+                          label={`Fees: ${fees}`}
+                          size="small"
+                          sx={{ bgcolor: "#fee2e2", color: "#b91c1c" }}
+                        />
                       </Stack>
 
                       <Typography variant="caption" color={tokens.textMuted}>

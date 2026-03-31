@@ -41,39 +41,58 @@ import {
 
 export default function DashboardPage() {
   const { departmentList, doctorList, loading } = useSelector(
-    (state: any) => state.doctor
+    (state: any) => state.doctor,
   );
   const { appointmentAcceptList } = useSelector(
-    (state: any) => state.appointment
+    (state: any) => state.appointment,
   );
 
   const router = useRouter();
   const { tokens, mode } = useThemeContext();
   const dispatch = useDispatch();
 
-  // Fetch accepted appointments
   useEffect(() => {
     dispatch(appointmentAcceptedList() as any);
   }, [dispatch]);
 
-  // Upcoming 7 days accepted appointments
   const today = dayjs().startOf("day");
   const next7 = today.add(7, "day");
-  const upcoming7Days = appointmentAcceptList
-    ?.filter((appt: any) => {
-      const d = dayjs(appt.date);
-      return d.isAfter(today.subtract(1, "day")) && d.isBefore(next7);
-    })
-    ?.sort((a: any, b: any) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf())
-    ?.slice(0, 6) || [];
+  const upcoming7Days =
+    appointmentAcceptList
+      ?.filter((appt: any) => {
+        const d = dayjs(appt.date);
+        return d.isAfter(today.subtract(1, "day")) && d.isBefore(next7);
+      })
+      ?.sort(
+        (a: any, b: any) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf(),
+      )
+      ?.slice(0, 6) || [];
 
   const deptColors = [
-    { gradient: "linear-gradient(135deg, #7c3aed, #a78bfa)", bg: mode === "dark" ? "rgba(124,58,237,0.12)" : "rgba(124,58,237,0.08)" },
-    { gradient: "linear-gradient(135deg, #e11d48, #f43f5e)", bg: mode === "dark" ? "rgba(225,29,72,0.12)" : "rgba(225,29,72,0.08)" },
-    { gradient: "linear-gradient(135deg, #0891b2, #22d3ee)", bg: mode === "dark" ? "rgba(8,145,178,0.12)" : "rgba(8,145,178,0.08)" },
-    { gradient: "linear-gradient(135deg, #ea580c, #fb923c)", bg: mode === "dark" ? "rgba(234,88,12,0.12)" : "rgba(234,88,12,0.08)" },
-    { gradient: "linear-gradient(135deg, #16a34a, #4ade80)", bg: mode === "dark" ? "rgba(22,163,74,0.12)" : "rgba(22,163,74,0.08)" },
-    { gradient: "linear-gradient(135deg, #ca8a04, #facc15)", bg: mode === "dark" ? "rgba(202,138,4,0.12)" : "rgba(202,138,4,0.08)" },
+    {
+      gradient: "linear-gradient(135deg, #7c3aed, #a78bfa)",
+      bg: mode === "dark" ? "rgba(124,58,237,0.12)" : "rgba(124,58,237,0.08)",
+    },
+    {
+      gradient: "linear-gradient(135deg, #e11d48, #f43f5e)",
+      bg: mode === "dark" ? "rgba(225,29,72,0.12)" : "rgba(225,29,72,0.08)",
+    },
+    {
+      gradient: "linear-gradient(135deg, #0891b2, #22d3ee)",
+      bg: mode === "dark" ? "rgba(8,145,178,0.12)" : "rgba(8,145,178,0.08)",
+    },
+    {
+      gradient: "linear-gradient(135deg, #ea580c, #fb923c)",
+      bg: mode === "dark" ? "rgba(234,88,12,0.12)" : "rgba(234,88,12,0.08)",
+    },
+    {
+      gradient: "linear-gradient(135deg, #16a34a, #4ade80)",
+      bg: mode === "dark" ? "rgba(22,163,74,0.12)" : "rgba(22,163,74,0.08)",
+    },
+    {
+      gradient: "linear-gradient(135deg, #ca8a04, #facc15)",
+      bg: mode === "dark" ? "rgba(202,138,4,0.12)" : "rgba(202,138,4,0.08)",
+    },
   ];
 
   const monthlyPerformance = (() => {
@@ -86,10 +105,13 @@ export default function DashboardPage() {
       };
     });
 
-    const monthIndex = months.reduce((acc, item, idx) => {
-      acc[item.key] = idx;
-      return acc;
-    }, {} as Record<string, number>);
+    const monthIndex = months.reduce(
+      (acc, item, idx) => {
+        acc[item.key] = idx;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
     appointmentAcceptList?.forEach((appt: any) => {
       const key = dayjs(appt.date).format("YYYY-MM");
@@ -114,14 +136,13 @@ export default function DashboardPage() {
 
   return (
     <Box sx={{ fontSize: 15 }}>
-      {/* Stats */}
       <DashboardStat />
 
-      {/* Main Content */}
       <Grid container spacing={3} sx={{ mt: 0.5, alignItems: "stretch" }}>
-
-        {/* Recent Doctors */}
-        <Grid size={{ xs: 12, lg: 6 }} sx={{ minHeight: 410, maxHeight: 460, overflow: "hidden" }}>
+        <Grid
+          size={{ xs: 12, lg: 6 }}
+          sx={{ minHeight: 410, maxHeight: 460, overflow: "hidden" }}
+        >
           <Paper
             elevation={0}
             sx={{
@@ -134,7 +155,6 @@ export default function DashboardPage() {
               maxHeight: 460,
             }}
           >
-            {/* Header */}
             <Box
               sx={{
                 px: 2,
@@ -151,7 +171,10 @@ export default function DashboardPage() {
                     width: 30,
                     height: 60,
                     borderRadius: 1.5,
-                    background: mode === "dark" ? "rgba(124,58,237,0.15)" : "rgba(124,58,237,0.1)",
+                    background:
+                      mode === "dark"
+                        ? "rgba(124,58,237,0.15)"
+                        : "rgba(124,58,237,0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -160,7 +183,12 @@ export default function DashboardPage() {
                   <GroupsIcon sx={{ color: "#7c3aed", fontSize: 16 }} />
                 </Box>
                 <Box>
-                  <Typography fontWeight={700} fontSize={16} color={tokens.text} lineHeight={1.2}>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={16}
+                    color={tokens.text}
+                    lineHeight={1.2}
+                  >
                     Recent Doctors
                   </Typography>
                   <Typography sx={{ fontSize: 13, color: tokens.textMuted }}>
@@ -188,7 +216,6 @@ export default function DashboardPage() {
               </Button>
             </Box>
 
-            {/* Body */}
             <Box sx={{ p: 1 }}>
               {loading ? (
                 <Stack spacing={0.5}>
@@ -204,7 +231,9 @@ export default function DashboardPage() {
                 </Stack>
               ) : doctorList?.length === 0 ? (
                 <Box sx={{ textAlign: "center", py: 3 }}>
-                  <GroupsIcon sx={{ fontSize: 36, color: tokens.textMuted, mb: 0.5 }} />
+                  <GroupsIcon
+                    sx={{ fontSize: 36, color: tokens.textMuted, mb: 0.5 }}
+                  />
                   <Typography color={tokens.textSecondary} fontSize={14}>
                     No doctors yet
                   </Typography>
@@ -224,19 +253,25 @@ export default function DashboardPage() {
                         cursor: "pointer",
                         transition: "all 0.15s ease",
                         "&:hover": {
-                          background: mode === "dark"
-                            ? "rgba(255,255,255,0.04)"
-                            : "rgba(0,0,0,0.02)",
+                          background:
+                            mode === "dark"
+                              ? "rgba(255,255,255,0.04)"
+                              : "rgba(0,0,0,0.02)",
                         },
                       }}
-                      onClick={() => router.push(`/dashboard/doctors/${doc._id}`)}
+                      onClick={() =>
+                        router.push(`/dashboard/doctors/${doc._id}`)
+                      }
                     >
-                      <Box sx={{ display: "flex", gap: 1.2, alignItems: "center" }}>
+                      <Box
+                        sx={{ display: "flex", gap: 1.2, alignItems: "center" }}
+                      >
                         <Avatar
                           sx={{
                             width: 36,
                             height: 36,
-                            background: "linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)",
+                            background:
+                              "linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)",
                             fontSize: 15,
                             fontWeight: 700,
                           }}
@@ -244,16 +279,29 @@ export default function DashboardPage() {
                           {doc.name?.charAt(0)}
                         </Avatar>
                         <Box>
-                          <Typography fontWeight={600} fontSize={16} color={tokens.text} lineHeight={1.2}>
+                          <Typography
+                            fontWeight={600}
+                            fontSize={16}
+                            color={tokens.text}
+                            lineHeight={1.2}
+                          >
                             Dr. {doc.name}
                           </Typography>
-                          <Typography sx={{ fontSize: 13, color: tokens.textMuted }}>
+                          <Typography
+                            sx={{ fontSize: 13, color: tokens.textMuted }}
+                          >
                             {doc.specialization || doc.department?.name}
                           </Typography>
                         </Box>
                       </Box>
 
-                      <Typography sx={{ fontWeight: 700, fontSize: 15, color: tokens.text }}>
+                      <Typography
+                        sx={{
+                          fontWeight: 700,
+                          fontSize: 15,
+                          color: tokens.text,
+                        }}
+                      >
                         ₹{doc.fees}
                       </Typography>
                     </Box>
@@ -264,12 +312,13 @@ export default function DashboardPage() {
           </Paper>
         </Grid>
 
-        {/* Calendar */}
-        <Grid size={{ xs: 12, lg: 6 }} sx={{ minHeight: 410, maxHeight: 460, overflow: "hidden" }}>
+        <Grid
+          size={{ xs: 12, lg: 6 }}
+          sx={{ minHeight: 410, maxHeight: 460, overflow: "hidden" }}
+        >
           <AppointmentCalendar />
         </Grid>
 
-        {/* Upcoming 7 Days Appointments */}
         <Grid size={{ xs: 12, md: 6 }} sx={{ mt: 0 }}>
           <Paper
             elevation={0}
@@ -301,7 +350,10 @@ export default function DashboardPage() {
                     width: 10,
                     height: 30,
                     borderRadius: 1.5,
-                    background: mode === "dark" ? "rgba(34,197,94,0.15)" : "rgba(34,197,94,0.1)",
+                    background:
+                      mode === "dark"
+                        ? "rgba(34,197,94,0.15)"
+                        : "rgba(34,197,94,0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -310,7 +362,12 @@ export default function DashboardPage() {
                   <CalendarMonthIcon sx={{ color: "#22c55e", fontSize: 16 }} />
                 </Box>
                 <Box>
-                  <Typography fontWeight={700} fontSize={17} color={tokens.text} lineHeight={1.2}>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={17}
+                    color={tokens.text}
+                    lineHeight={1.2}
+                  >
                     Upcoming Confirmed (Next 7 Days)
                   </Typography>
                   <Typography sx={{ fontSize: 14, color: tokens.textMuted }}>
@@ -340,7 +397,9 @@ export default function DashboardPage() {
             <Box sx={{ p: 1.5, flex: 1, overflowY: "auto" }}>
               {upcoming7Days.length === 0 ? (
                 <Box sx={{ textAlign: "center", py: 2 }}>
-                  <CalendarMonthIcon sx={{ fontSize: 32, color: tokens.textMuted, mb: 0.5 }} />
+                  <CalendarMonthIcon
+                    sx={{ fontSize: 32, color: tokens.textMuted, mb: 0.5 }}
+                  />
                   <Typography sx={{ color: tokens.textMuted, fontSize: 14 }}>
                     No upcoming appointments in the next 7 days
                   </Typography>
@@ -361,21 +420,32 @@ export default function DashboardPage() {
                           borderRadius: 2,
                           border: `1px solid ${isToday ? (mode === "dark" ? "rgba(34,197,94,0.3)" : "rgba(34,197,94,0.25)") : tokens.cardBorder}`,
                           background: isToday
-                            ? (mode === "dark" ? "rgba(34,197,94,0.08)" : "rgba(34,197,94,0.05)")
+                            ? mode === "dark"
+                              ? "rgba(34,197,94,0.08)"
+                              : "rgba(34,197,94,0.05)"
                             : tokens.bgSurface,
                           transition: "all 0.2s ease",
                           "&:hover": {
-                            borderColor: mode === "dark" ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.1)",
+                            borderColor:
+                              mode === "dark"
+                                ? "rgba(255,255,255,0.12)"
+                                : "rgba(0,0,0,0.1)",
                             transform: "translateY(-1px)",
                           },
                         }}
                       >
                         <Box sx={{ minWidth: 0, flex: 1 }}>
-                          <Typography fontWeight={700} fontSize={14} color={tokens.text}>
+                          <Typography
+                            fontWeight={700}
+                            fontSize={14}
+                            color={tokens.text}
+                          >
                             {appt.name}
                           </Typography>
                           <Typography fontSize={12} color={tokens.textMuted}>
-                            Dr. {getDoctorName(appt)} · {apptDate.format("DD MMM")}{appt.time ? ` · ${appt.time}` : ""}
+                            Dr. {getDoctorName(appt)} ·{" "}
+                            {apptDate.format("DD MMM")}
+                            {appt.time ? ` · ${appt.time}` : ""}
                           </Typography>
                         </Box>
                         <Chip
@@ -384,7 +454,9 @@ export default function DashboardPage() {
                           sx={{
                             fontWeight: 600,
                             fontSize: 11,
-                            background: isToday ? "rgba(34,197,94,0.15)" : tokens.bgGlass,
+                            background: isToday
+                              ? "rgba(34,197,94,0.15)"
+                              : tokens.bgGlass,
                             color: isToday ? "#22c55e" : tokens.text,
                             ml: 1,
                           }}
@@ -398,7 +470,6 @@ export default function DashboardPage() {
           </Paper>
         </Grid>
 
-        {/* Monthly Appointment Performance */}
         <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={0}
@@ -415,23 +486,48 @@ export default function DashboardPage() {
               flexDirection: "column",
             }}
           >
-            <Typography fontWeight={700} fontSize={16} color={tokens.text} mb={0.5}>
+            <Typography
+              fontWeight={700}
+              fontSize={16}
+              color={tokens.text}
+              mb={0.5}
+            >
               Monthly Appointment Performance
             </Typography>
             <Typography sx={{ fontSize: 12, color: tokens.textMuted, mb: 1.5 }}>
               Last 6 months
             </Typography>
             <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={monthlyPerformance} margin={{ top: 10, right: 5, left: -10, bottom: 5 }}>
+              <BarChart
+                data={monthlyPerformance}
+                margin={{ top: 10, right: 5, left: -10, bottom: 5 }}
+              >
                 <defs>
                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={tokens.accent} stopOpacity={0.95} />
-                    <stop offset="100%" stopColor={tokens.accentLight} stopOpacity={0.35} />
+                    <stop
+                      offset="0%"
+                      stopColor={tokens.accent}
+                      stopOpacity={0.95}
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor={tokens.accentLight}
+                      stopOpacity={0.35}
+                    />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke={tokens.border} />
-                <XAxis dataKey="month" stroke={tokens.textSecondary} tick={{ fontSize: 12, fill: tokens.textSecondary }} />
-                <YAxis stroke={tokens.textSecondary} tick={{ fontSize: 12, fill: tokens.textSecondary }} allowDecimals={false} width={25} />
+                <XAxis
+                  dataKey="month"
+                  stroke={tokens.textSecondary}
+                  tick={{ fontSize: 12, fill: tokens.textSecondary }}
+                />
+                <YAxis
+                  stroke={tokens.textSecondary}
+                  tick={{ fontSize: 12, fill: tokens.textSecondary }}
+                  allowDecimals={false}
+                  width={25}
+                />
                 <Tooltip
                   contentStyle={{
                     background: tokens.cardBg,
@@ -441,15 +537,23 @@ export default function DashboardPage() {
                     fontSize: 12,
                   }}
                 />
-                <Bar dataKey="count" fill="url(#barGradient)" radius={[6, 6, 0, 0]}>
-                  <LabelList dataKey="count" position="top" fill={tokens.text} fontSize={11} />
+                <Bar
+                  dataKey="count"
+                  fill="url(#barGradient)"
+                  radius={[6, 6, 0, 0]}
+                >
+                  <LabelList
+                    dataKey="count"
+                    position="top"
+                    fill={tokens.text}
+                    fontSize={11}
+                  />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </Paper>
         </Grid>
 
-        {/* Departments */}
         <Grid size={{ xs: 12 }}>
           <Paper
             elevation={0}
@@ -461,7 +565,6 @@ export default function DashboardPage() {
               overflow: "hidden",
             }}
           >
-            {/* Header */}
             <Box
               sx={{
                 px: 2,
@@ -478,7 +581,10 @@ export default function DashboardPage() {
                     width: 30,
                     height: 30,
                     borderRadius: 1.5,
-                    background: mode === "dark" ? "rgba(225,29,72,0.15)" : "rgba(225,29,72,0.1)",
+                    background:
+                      mode === "dark"
+                        ? "rgba(225,29,72,0.15)"
+                        : "rgba(225,29,72,0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -487,7 +593,12 @@ export default function DashboardPage() {
                   <FolderSpecialIcon sx={{ color: "#e11d48", fontSize: 16 }} />
                 </Box>
                 <Box>
-                  <Typography fontWeight={700} fontSize={16} color={tokens.text} lineHeight={1.2}>
+                  <Typography
+                    fontWeight={700}
+                    fontSize={16}
+                    color={tokens.text}
+                    lineHeight={1.2}
+                  >
                     Departments
                   </Typography>
                   <Typography sx={{ fontSize: 13, color: tokens.textMuted }}>
@@ -514,7 +625,6 @@ export default function DashboardPage() {
               </Button>
             </Box>
 
-            {/* Body */}
             <Box sx={{ p: 1.5 }}>
               <Grid container spacing={1}>
                 {departmentList?.slice(0, 6).map((dept: any, i: number) => {
@@ -536,7 +646,9 @@ export default function DashboardPage() {
                           },
                         }}
                         onClick={() =>
-                          router.push(`/dashboard/doctors?departmentId=${dept._id}`)
+                          router.push(
+                            `/dashboard/doctors?departmentId=${dept._id}`,
+                          )
                         }
                       >
                         <Box
@@ -552,7 +664,9 @@ export default function DashboardPage() {
                             mb: 0.8,
                           }}
                         >
-                          <LocalHospitalIcon sx={{ color: "#fff", fontSize: 15 }} />
+                          <LocalHospitalIcon
+                            sx={{ color: "#fff", fontSize: 15 }}
+                          />
                         </Box>
                         <Typography
                           sx={{

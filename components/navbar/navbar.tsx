@@ -48,7 +48,6 @@ export default function Navbar() {
           px: 3,
         }}
       >
-        {/* LEFT */}
         <Box display="flex" flexDirection="column" gap={0.3}>
           <Box display="flex" alignItems="center" gap={1}>
             <Typography
@@ -101,21 +100,7 @@ export default function Navbar() {
           </Box>
         </Box>
 
-        {/* RIGHT */}
         <Box display="flex" alignItems="center" gap={1.5}>
-          {/* <IconButton
-            sx={{
-              background: tokens.cardBg,
-              border: `1px solid ${tokens.border}`,
-              backdropFilter: tokens.glassBlur,
-              "&:hover": { background: tokens.bgElevated },
-            }}
-          >
-            <Badge badgeContent={3} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 10, minWidth: 18, height: 18 } }}>
-              <NotificationsIcon sx={{ color: tokens.textSecondary, fontSize: 20 }} />
-            </Badge>
-          </IconButton> */}
-
           <Avatar
             sx={{
               width: 38,
@@ -133,13 +118,3 @@ export default function Navbar() {
     </AppBar>
   );
 }
-
-
-
-
-
-
-
-
-
-

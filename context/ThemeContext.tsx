@@ -45,6 +45,8 @@ interface ThemeTokens {
   // Shadows
   shadow: string;
   shadowStrong: string;
+  // Hover
+  hoverBg: string;
 }
 
 const darkTokens: ThemeTokens = {
@@ -77,6 +79,7 @@ const darkTokens: ThemeTokens = {
   scrollThumbHover: "#3a4060",
   shadow: "0 4px 24px rgba(0,0,0,0.2)",
   shadowStrong: "0 8px 40px rgba(0,0,0,0.35)",
+  hoverBg: "rgba(255, 255, 255, 0.05)",
 };
 
 const lightTokens: ThemeTokens = {
@@ -109,6 +112,7 @@ const lightTokens: ThemeTokens = {
   scrollThumbHover: "#a0aab8",
   shadow: "0 4px 24px rgba(100,116,139,0.08)",
   shadowStrong: "0 8px 40px rgba(100,116,139,0.15)",
+  hoverBg: "rgba(0, 0, 0, 0.03)",
 };
 
 interface ThemeContextValue {

@@ -19,7 +19,7 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Scrollbar */
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -34,7 +34,7 @@ body {
   background: rgba(128, 128, 128, 0.5);
 }
 
-/* MUI Menu override - handled dynamically by theme */
+
 .MuiMenu-paper {
   backdrop-filter: blur(16px) !important;
 }
