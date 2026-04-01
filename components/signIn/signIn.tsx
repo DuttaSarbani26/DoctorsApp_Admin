@@ -75,12 +75,14 @@ export default function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        px: { xs: 2, sm: 3 },
       }}
     >
       <Card
         sx={{
-          width: 420,
-          p: 2,
+          width: "100%",
+          maxWidth: { xs: "100%", sm: 420 },
+          p: { xs: 1.5, sm: 2 },
           background: tokens.bgGlassStrong,
           backdropFilter: tokens.glassBlur,
           border: `1px solid ${tokens.border}`,
@@ -89,14 +91,14 @@ export default function Login() {
         <CardContent>
           <Stack alignItems="center" spacing={1} mb={3}>
             <MedicalServicesIcon
-              sx={{ fontSize: 50, color: tokens.accentLight }}
+              sx={{ fontSize: { xs: 40, md: 50 }, color: tokens.accentLight }}
             />
 
-            <Typography variant="h5" fontWeight="bold" color={tokens.text}>
+            <Typography variant="h5" fontWeight="bold" color={tokens.text} sx={{ fontSize: { xs: 18, md: 22 } }}>
               Welcome Back
             </Typography>
 
-            <Typography variant="body2" color={tokens.textSecondary}>
+            <Typography variant="body2" color={tokens.textSecondary} sx={{ fontSize: { xs: 12, md: 14 } }}>
               Sign in to manage doctors & departments
             </Typography>
           </Stack>

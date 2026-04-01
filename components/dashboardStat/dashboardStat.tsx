@@ -38,7 +38,7 @@ export default function DashboardStat() {
     {
       label: "Total Doctors",
       value: stats.doctors,
-      icon: <GroupsIcon sx={{ fontSize: 26 }} />,
+      icon: <GroupsIcon sx={{ fontSize: { xs: 22, md: 26 } }} />,
       gradient: "linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)",
       lightBg: "rgba(124, 58, 237, 0.08)",
       darkBg: "rgba(124, 58, 237, 0.12)",
@@ -48,7 +48,7 @@ export default function DashboardStat() {
     {
       label: "Departments",
       value: stats.departments,
-      icon: <LocalHospitalIcon sx={{ fontSize: 26 }} />,
+      icon: <LocalHospitalIcon sx={{ fontSize: { xs: 22, md: 26 } }} />,
       gradient: "linear-gradient(135deg, #e11d48 0%, #f43f5e 100%)",
       lightBg: "rgba(225, 29, 72, 0.08)",
       darkBg: "rgba(225, 29, 72, 0.12)",
@@ -58,7 +58,7 @@ export default function DashboardStat() {
     {
       label: "Appointments",
       value: stats.appointments,
-      icon: <EventNoteIcon sx={{ fontSize: 26 }} />,
+      icon: <EventNoteIcon sx={{ fontSize: { xs: 22, md: 26 } }} />,
       gradient: "linear-gradient(135deg, #0891b2 0%, #22d3ee 100%)",
       lightBg: "rgba(8, 145, 178, 0.08)",
       darkBg: "rgba(8, 145, 178, 0.12)",
@@ -68,13 +68,13 @@ export default function DashboardStat() {
   ];
 
   return (
-    <Grid container spacing={2.5}>
+    <Grid container spacing={{ xs: 1.5, md: 2.5 }}>
       {cards.map((card, index) => (
         <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
           <Paper
             elevation={0}
             sx={{
-              p: 2.5,
+              p: { xs: 1.5, md: 2.5 },
               borderRadius: 3,
               border: `1px solid ${tokens.cardBorder}`,
               background: tokens.cardBg,

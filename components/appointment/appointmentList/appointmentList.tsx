@@ -72,10 +72,10 @@ export default function AppointmentList() {
   return (
     <Box>
       <Box mb={3}>
-        <Typography variant="h4" fontWeight={700} color={tokens.text}>
+        <Typography variant="h4" fontWeight={700} color={tokens.text} sx={{ fontSize: { xs: 22, md: 32 } }}>
           Appointments
         </Typography>
-        <Typography variant="body2" color={tokens.textSecondary}>
+        <Typography variant="body2" color={tokens.textSecondary} sx={{ fontSize: { xs: 12, md: 14 } }}>
           Manage all appointment requests
         </Typography>
       </Box>
@@ -87,6 +87,7 @@ export default function AppointmentList() {
           border: `1px solid ${tokens.cardBorder}`,
           overflow: "hidden",
           background: tokens.cardBg,
+          p: { xs: 1, md: 0 },
         }}
       >
         <Stack divider={<Divider sx={{ borderColor: tokens.cardBorder }} />}>
@@ -94,10 +95,12 @@ export default function AppointmentList() {
             <Box
               key={item._id}
               sx={{
-                px: 2.5,
-                py: 2,
+                px: { xs: 1.5, md: 2.5 },
+                py: { xs: 1.5, md: 2 },
                 display: "flex",
-                alignItems: "center",
+                alignItems: { xs: "flex-start", md: "center" },
+                flexDirection: { xs: "column", md: "row" },
+                gap: { xs: 2, md: 0 },
                 justifyContent: "space-between",
                 transition: "all 0.25s ease",
                 "&:hover": {

@@ -132,15 +132,17 @@ export default function DoctorList() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: { xs: "flex-start", sm: "center" },
           mb: 3,
+          gap: 2,
+          flexDirection: { xs: "column", sm: "row" },
         }}
       >
         <Box>
-          <Typography variant="h4" fontWeight={700} color={tokens.text}>
+          <Typography variant="h4" fontWeight={700} color={tokens.text} sx={{ fontSize: { xs: 22, md: 32 } }}>
             Doctors
           </Typography>
-          <Typography variant="body2" color={tokens.textSecondary}>
+          <Typography variant="body2" color={tokens.textSecondary} sx={{ fontSize: { xs: 12, md: 14 } }}>
             Manage all doctors in your hospital
           </Typography>
         </Box>
@@ -156,8 +158,9 @@ export default function DoctorList() {
             borderRadius: 2.5,
             textTransform: "none",
             fontWeight: 600,
-            px: 3,
+            px: { xs: 2, md: 3 },
             py: 1,
+            fontSize: { xs: 12, md: 14 },
             boxShadow: "0 4px 15px rgba(124,58,237,0.3)",
             "&:hover": {
               background: "linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%)",
@@ -171,15 +174,16 @@ export default function DoctorList() {
       <Paper
         elevation={0}
         sx={{
-          p: 2,
+          p: { xs: 1.5, md: 2 },
           mb: 3,
           borderRadius: 3,
           border: `1px solid ${tokens.cardBorder}`,
           background: tokens.cardBg,
           backdropFilter: tokens.glassBlur,
           display: "flex",
-          gap: 2,
+          gap: { xs: 1, md: 2 },
           alignItems: "center",
+          flexDirection: { xs: "column", sm: "row" },
         }}
       >
         <TextField
@@ -226,7 +230,7 @@ export default function DoctorList() {
           }}
           displayEmpty
           sx={{
-            minWidth: 180,
+            minWidth: { xs: 150, sm: 180 },
             borderRadius: 2.5,
             color: tokens.text,
             "& .MuiOutlinedInput-notchedOutline": {

@@ -30,6 +30,17 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Swal from "sweetalert2";
 
 const drawerWidth = 270;
+const mobileDrawerWidth = 0; // Hidden on mobile
+
+export const SidebarContext = React.createContext<{ mobileOpen: boolean; setMobileOpen: (open: boolean) => void } | undefined>(undefined);
+
+export function useSidebar() {
+  const context = React.useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within SidebarProvider");
+  }
+  return context;
+}
 
 const menuItems = [
   { label: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
@@ -51,6 +62,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { tokens, mode, toggleTheme } = useThemeContext();
+  const { mobileOpen, setMobileOpen } = useSidebar();
 
   const handleLogout = () => {
     Swal.fire({
@@ -79,21 +91,56 @@ export default function Sidebar() {
   };
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
+    <>
+      {/* Mobile Drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            border: "none",
+            background: tokens.sidebarBg,
+            backdropFilter: tokens.sidebarGlass,
+            borderRight: `1px solid ${tokens.border}`,
+          },
+        }}
+      >
+        <SidebarContent pathname={pathname} router={router} tokens={tokens} toggleTheme={toggleTheme} handleLogout={handleLogout} setMobileOpen={setMobileOpen} mode={mode} />
+      </Drawer>
+
+      {/* Desktop Drawer */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: "none", md: "block" },
           width: drawerWidth,
-          boxSizing: "border-box",
-          border: "none",
-          background: tokens.sidebarBg,
-          backdropFilter: tokens.sidebarGlass,
-          borderRight: `1px solid ${tokens.border}`,
-        },
-      }}
-    >
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            border: "none",
+            background: tokens.sidebarBg,
+            backdropFilter: tokens.sidebarGlass,
+            borderRight: `1px solid ${tokens.border}`,
+          },
+        }}
+      >
+        <SidebarContent pathname={pathname} router={router} tokens={tokens} toggleTheme={toggleTheme} handleLogout={handleLogout} setMobileOpen={setMobileOpen} mode={mode} />
+      </Drawer>
+
+      {/* Store handler in context */}
+      <Box sx={{ display: "none" }} data-sidebar-toggle={mobileOpen.toString()} />
+    </>
+  );
+}
+
+function SidebarContent({ pathname, router, tokens, toggleTheme, handleLogout, setMobileOpen, mode }: any) {
+  return (
+    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Box
         sx={{
           background: "linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)",
@@ -160,7 +207,10 @@ export default function Sidebar() {
             return (
               <ListItemButton
                 key={item.label}
-                onClick={() => router.push(item.path)}
+                onClick={() => {
+                  router.push(item.path);
+                  setMobileOpen(false);
+                }}
                 sx={{
                   borderRadius: 2.5,
                   mb: 0.5,
@@ -288,6 +338,6 @@ export default function Sidebar() {
           <LogoutIcon fontSize="small" />
         </IconButton>
       </Box>
-    </Drawer>
+    </Box>
   );
 }

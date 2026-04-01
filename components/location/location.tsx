@@ -78,11 +78,11 @@ export default function LocationPage() {
   }, [selector.data]);
 
   return (
-    <Box display="flex" justifyContent="center" p={3}>
+    <Box display="flex" justifyContent="center" p={{ xs: 1.5, md: 3 }}>
       <Card
         sx={{
           width: "100%",
-          maxWidth: 700,
+          maxWidth: { xs: "100%", sm: 700 },
           borderRadius: 4,
           boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
           border: `1px solid ${tokens.border}`,
@@ -91,8 +91,8 @@ export default function LocationPage() {
       >
         <Box
           sx={{
-            px: 3,
-            py: 2.5,
+            px: { xs: 2, md: 3 },
+            py: { xs: 1.5, md: 2.5 },
             display: "flex",
             alignItems: "center",
             gap: 2,
@@ -100,7 +100,7 @@ export default function LocationPage() {
             color: "#fff",
             borderTopLeftRadius: 16,
             borderTopRightRadius: 16,
-          }}
+          }}           
         >
           <LocationOnIcon />
           <Box>
@@ -252,7 +252,7 @@ export default function LocationPage() {
             </Box>
 
             <Button
-              startIcon={<MyLocationIcon />}
+              startIcon={<MyLocationIcon />}     
               onClick={() => {
                 navigator.geolocation.getCurrentPosition((pos) => {
                   setValue("lat", pos.coords.latitude);
